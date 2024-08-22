@@ -2,3 +2,5 @@ set bg=dark
 set number relativenumber
 set cursorcolumn
 set hlsearch
+set mouse:
+syntax on
