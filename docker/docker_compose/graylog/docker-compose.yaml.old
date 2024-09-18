@@ -12,8 +12,7 @@ volumes:
     driver: local
   graylog_data:
     driver: local
-  graylog_cfg:
-    driver: local
+
 services:
   # Graylog stores configuration in MongoDB
   mongo:
@@ -83,7 +82,6 @@ services:
     volumes:
       - "${PWD}/config/graylog/graylog.conf:/usr/share/graylog/config/graylog.conf"
       - "graylog_data:/usr/share/graylog/data"
-      - "graylog_cfg:/usr/share/graylog/data/config"
     networks:
       - graynet
     restart: always
