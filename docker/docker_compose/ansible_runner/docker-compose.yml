@@ -1,0 +1,13 @@
+services:
+  ansible:
+    image: python:3.11-slim # Use a modern Python base image
+    container_name: ansible_container
+    volumes:
+      - .:/ansible/playbooks # Mount your local directory (./playbooks) to the container
+    working_dir: /ansible/playbooks # Set the working directory in the container
+    command: >
+      sh -c "pip install ansible && ansible-playbook ./playbooks/00-initial.yml -i inventory.yml"
+    environment:
+      - ANSIBLE_HOST_KEY_CHECKING=False # Optional, if you want to skip host key checking
+    tty: true
+
