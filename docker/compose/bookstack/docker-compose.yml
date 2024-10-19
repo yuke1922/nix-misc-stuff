@@ -1,0 +1,41 @@
+---
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:latest
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - APP_URL=https://docs.lmccormick.com
+      - APP_KEY=base64:VJQ77+CJZCcGFgKi1HjMBIEB9r42xSZZqX6geD9q0i0=
+      - DB_HOST=bookstack_db
+      - DB_PORT=3306
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=mydatabasepassword
+      - DB_DATABASE=bookstackapp
+      - QUEUE_CONNECTION= #optional
+    ports:
+      - 10091:80/tcp
+    volumes:
+      - ./bookstack:/config
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: bookstack_db
+    hostname: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - MYSQL_ROOT_PASSWORD=r00tP@ssw0rd
+      - MYSQL_DATABASE=bookstackapp #optional
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD=mydatabasepassword
+#      - REMOTE_SQL=http://URL1/your.sql,https://URL2/your.sql #optional
+    volumes:
+      - ./database:/config
+    restart: unless-stopped
+
