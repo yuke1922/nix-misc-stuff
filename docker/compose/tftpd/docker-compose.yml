@@ -1,7 +1,0 @@
-services:
-  tftpd-hpa:
-    image: danrue/tftpd-hpa
-    volumes:
-      - ./tftp:/srv/tftp
-    ports:
-      - 69:69/udp
